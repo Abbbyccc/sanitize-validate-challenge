@@ -5,8 +5,11 @@ function home(posts) {
     <form method="POST">
       <p>
         <label for="nickname">Nickname</label>
-        <input id="nickname" name="nickname">
+        <input id="nickname" 
+          name="nickname"
+          value="${posts.nickname ? posts.nickname : ""}">
       </p>
+      
       <p>
         <label for="message">Message</label>
         <textarea id="message" name="message"></textarea>
@@ -26,7 +29,7 @@ function postItem(post) {
   const prettyDate = date.toLocaleString("en-GB");
   return `
     <li>
-      <p>${post.message}</p>
+      <p>${sanitize(post.message)}</p>
       <p>—${post.nickname} | ${prettyDate}</p>
     </li>
   `;
@@ -46,5 +49,10 @@ function layout(title, content) {
     </html>
   `;
 }
+
+function sanitize(str) {
+  return str.replaceAll('<', '&lt;')
+}
+
 
 module.exports = { home };

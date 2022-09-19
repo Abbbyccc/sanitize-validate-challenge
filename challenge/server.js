@@ -14,8 +14,13 @@ server.post("/", express.urlencoded({ extended: false }), (req, res) => {
   const nickname = req.body.nickname;
   const message = req.body.message;
   const created = Date.now();
-  posts.push({ nickname, message, created });
-  res.redirect("/");
+  if (!nickname || !message) {
+    res.status(400)
+    res.redirect("/");
+  } else {
+    posts.push({ nickname, message, created });
+    res.redirect("/");
+  }
 });
 
 module.exports = server;
