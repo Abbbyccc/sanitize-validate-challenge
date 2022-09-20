@@ -1,4 +1,4 @@
-function home(posts) {
+function home(posts, nicknameError, msgError) {
   const title = "All posts";
   const content = /*html*/ `
     <h2>New post</h2>
@@ -6,13 +6,14 @@ function home(posts) {
       <p>
         <label for="nickname">Nickname</label>
         <input id="nickname" 
-          name="nickname"
-          value="${posts.nickname ? posts.nickname : ""}">
+          name="nickname"/>
+          <p>${nicknameError}</p>
       </p>
       
       <p>
         <label for="message">Message</label>
         <textarea id="message" name="message"></textarea>
+        <p>${msgError}</p>
       </p>
       <button>Send</button>
     </form>
@@ -30,7 +31,7 @@ function postItem(post) {
   return `
     <li>
       <p>${sanitize(post.message)}</p>
-      <p>—${post.nickname} | ${prettyDate}</p>
+      <p>—${sanitize(post.nickname)} | ${prettyDate}</p>
     </li>
   `;
 }
@@ -53,6 +54,5 @@ function layout(title, content) {
 function sanitize(str) {
   return str.replaceAll('<', '&lt;')
 }
-
 
 module.exports = { home };
