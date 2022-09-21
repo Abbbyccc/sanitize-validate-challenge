@@ -1,3 +1,4 @@
+
 function home(posts, nicknameError, msgError) {
   const title = "All posts";
   const content = /*html*/ `
@@ -7,13 +8,13 @@ function home(posts, nicknameError, msgError) {
         <label for="nickname">Nickname</label>
         <input id="nickname" 
           name="nickname"/>
-          <p>${nicknameError}</p>
+          <p>${nicknameError?"please enter your nickname":""}</p>
       </p>
       
       <p>
         <label for="message">Message</label>
         <textarea id="message" name="message"></textarea>
-        <p>${msgError}</p>
+        <p>${msgError?"please enter your message":""}</p>
       </p>
       <button>Send</button>
     </form>

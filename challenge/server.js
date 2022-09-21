@@ -15,15 +15,18 @@ server.post("/", express.urlencoded({ extended: false }), (req, res) => {
   const message = req.body.message;
   const created = Date.now();
 
-  const nicknameError = "please enter your nickname"
-  const msgError = "please enter your message"
+  const nicknameError = true
+  const msgError = true
 
-  if (nickname === "" || message === "") {
+  if (nickname === "" && message === "") {
     res.status(400).send(home(posts, nicknameError, msgError))
+  } else if (nickname == "") {
+    res.status(400).send(home(posts, nicknameError, false))
+  } else if (message == "") {
+    res.status(400).send(home(posts, false, msgError))
   } else {
     posts.push({ nickname, message, created });
     res.redirect("/")
-
   }
 });
 
